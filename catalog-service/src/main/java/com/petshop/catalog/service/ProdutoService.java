@@ -1,7 +1,8 @@
-package com.petshop.catalogservice.service;
+package com.petshop.catalog.service;
 
-import com.petshop.catalogservice.model.Produto;
-import com.petshop.catalogservice.repository.ProdutoRepository;
+
+import com.petshop.catalog.model.Produto;
+import com.petshop.catalog.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,4 +31,6 @@ public class ProdutoService {
     public void deletar(Long id) {
         produtoRepository.deleteById(id);
     }
+
+
 }

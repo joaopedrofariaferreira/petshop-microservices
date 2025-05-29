@@ -1,7 +1,8 @@
 package com.petshop.catalog.controller;
 
 import com.petshop.catalog.model.Produto;
-import com.petshop.catalogservice.service.ProdutoService;
+
+import com.petshop.catalog.service.ProdutoService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class ProdutoController {
     @Operation(summary = "Listar todos os produtos")
     @GetMapping
     public ResponseEntity<List<Produto>> listarTodos() {
-        return ResponseEntity.ok(produtoService.listarTodos());
+        return (ResponseEntity<List<Produto>>) ResponseEntity.ok();
     }
 
     @Operation(summary = "Buscar produto por ID")
