@@ -1,0 +1,85 @@
+
+version: '3.8'
+
+services:
+  mysql-catalog:
+    image: mysql:8
+    container_name: mysql_catalog
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: catalogdb
+    ports:
+      - "33061:3306"
+    volumes:
+      - catalog_data:/var/lib/mysql
+
+  mysql-user:
+    image: mysql:8
+    container_name: mysql_user
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: userdb
+    ports:
+      - "33062:3306"
+    volumes:
+      - user_data:/var/lib/mysql
+
+  mysql-orders:
+    image: mysql:8
+    container_name: mysql_orders
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: ordersdb
+    ports:
+      - "33063:3306"
+    volumes:
+      - orders_data:/var/lib/mysql
+
+  mysql-payment:
+    image: mysql:8
+    container_name: mysql_payment
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: paymentdb
+    ports:
+      - "33064:3306"
+    volumes:
+      - payment_data:/var/lib/mysql
+
+  catalog-service:
+    build:
+      context: ./catalog-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql-catalog
+
+  user-service:
+    build:
+      context: ./user-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mysql-user
+
+  orders-service:
+    build:
+      context: ./orders-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - mysql-orders
+
+  payment-service:
+    build:
+      context: ./payment-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - mysql-payment
+
+volumes:
+  catalog_data:
+  user_data:
+  orders_data:
+  payment_data:
